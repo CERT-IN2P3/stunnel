@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push
+        uses: docker/build-push-action@v1
+        with:
+          registry: ghcr.io
+          username: "guillaume-philippon"
+          password: ${{ secrets.PAT }}
+          repository: cert-in2p3/stunnel
+          tags: latest
